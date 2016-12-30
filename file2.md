@@ -1,1 +1,1 @@
- Testing 
+ECHO is on.
