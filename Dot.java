@@ -124,5 +124,5 @@ public class Dot
         mycolor=nColor;
     }
 
-    
+    //awoirjaoiwjroaijwroiajwroijaowrjaoijaworij
 }
