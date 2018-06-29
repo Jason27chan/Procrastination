@@ -11,21 +11,24 @@ app.use(bodyParser.urlencoded({extended:false}))
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "root",
+  database: "test"
 });
+
+var votes;
 
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("USE test");
-  con.query("Select * from gui_state", function(err, rows) {
-  	console.log(rows);
+  con.query("Select * from votes", function(err, rows) {
+  	votes = rows
   });
 });
 
-// con.query("Select * from gui_state", function(err, rows) {
-// 	console.log(rows);
-// });
+app.get("/votes", (req, res) => {
+	res.send(votes)
+})
+
 
 var server = http.listen(3000, () => {
 	console.log("server is listening on port", server.address().port);
