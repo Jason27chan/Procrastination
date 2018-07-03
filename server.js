@@ -20,13 +20,22 @@ var votes;
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("Select * from votes", function(err, rows) {
-  	votes = rows
-  });
 });
 
 app.get("/votes", (req, res) => {
+  con.query("Select * from votes", function(err, rows) {
+    if (err) throw err; 
+    votes = rows;
+  });
 	res.send(votes)
+})
+
+app.post("/votes/:optId", (req, res) => {
+	con.query("UPDATE votes SET opt"+req.params.optId+"_votes=opt"+req.params.optId+"_votes + 1 WHERE id=1", function(err) {
+    if (err) throw err;
+    console.log("update successful");
+  });
+  console.log("Post request received");
 })
 
 

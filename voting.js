@@ -22,6 +22,6 @@ function getVotes() {
 }
 
 function addVote(option) {
-
+	$.post("http://localhost:3000/votes/"+option);
 	console.log("adding")
 }
