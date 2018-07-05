@@ -20,12 +20,14 @@ var votes;
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
+
 });
 
 app.get("/votes", (req, res) => {
   con.query("Select * from votes", function(err, rows) {
     if (err) throw err; 
     votes = rows;
+    io.emit("voted")
   });
 	res.send(votes)
 })
