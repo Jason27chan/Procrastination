@@ -34,12 +34,13 @@ app.get("/votes", (req, res) => {
 
 app.post("/votes/:optId", (req, res) => {
   console.log(req.params.optId);  
-	con.query("UPDATE votes SET opt"+req.params.optId+"_votes=opt"+req.params.optId+"_votes + 1 WHERE id=1", function(err, rows) {
+	con.query("UPDATE votes SET opt"+req.params.optId+"_votes=opt"+req.params.optId+"_votes + 1 WHERE id=1", function(err, rows, fields) {
     if (err) throw err;
-    io.emit("voted")
+    console.log(fields);
     // res.sendStatus(200);
     console.log("update successful");
   });
+  io.emit("voted");
   con.query("Select * from votes WHERE id=1", function(err, rows) {
     if (err) throw err; 
     votes = rows;

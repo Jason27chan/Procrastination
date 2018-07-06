@@ -8,18 +8,10 @@ $(function() {
 		addVote("2");
 	})
 
-	$("#btn-3").click(function() {
-		getVotes();
-	})
-
 	getVotes();
 });
 
 socket.on("voted", getVotes)
-
-function printStuff() {
-	console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-}
 
 function getVotes() {
 	$.get("http://localhost:3000/votes", (data) => {
@@ -31,7 +23,5 @@ function getVotes() {
 
 function addVote(option) {
 	console.log("adding to " + option)
-	$.post("http://localhost:3000/votes/"+option, (data => {
-		console.log(data[0]);
-	}));
+	$.post("http://localhost:3000/votes/"+option);
 }
