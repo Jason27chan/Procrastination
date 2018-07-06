@@ -1,13 +1,15 @@
 var socket = io()
 $(function() {
 	$("#btn-1").click(function() {
-		console.log("button 1 pressed");
-		addVote("1");
-	})
+		addVote("1")
+	});
 
 	$("#btn-2").click(function() {
-		console.log("button 2 pressed");
 		addVote("2");
+	})
+
+	$("#btn-3").click(function() {
+		getVotes();
 	})
 
 	getVotes();
@@ -15,14 +17,21 @@ $(function() {
 
 socket.on("voted", getVotes)
 
+function printStuff() {
+	console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+}
+
 function getVotes() {
 	$.get("http://localhost:3000/votes", (data) => {
-		$("#votes1").text(data[0].opt1_votes);
-		$("#votes2").text(data[0].opt2_votes);
+		console.log(data[0]);
+		$("#votes1").text(data[0]["opt1_votes"]);
+		$("#votes2").text(data[0]["opt2_votes"]);
 	})
 }
 
 function addVote(option) {
-	$.post("http://localhost:3000/votes/"+option);
-	console.log("adding")
+	console.log("adding to " + option)
+	$.post("http://localhost:3000/votes/"+option, (data => {
+		console.log(data[0]);
+	}));
 }

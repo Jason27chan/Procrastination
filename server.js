@@ -24,20 +24,27 @@ con.connect(function(err) {
 });
 
 app.get("/votes", (req, res) => {
-  con.query("Select * from votes", function(err, rows) {
+  con.query("Select * from votes WHERE id=1", function(err, rows) {
     if (err) throw err; 
     votes = rows;
-    io.emit("voted")
+
   });
 	res.send(votes)
 })
 
 app.post("/votes/:optId", (req, res) => {
-	con.query("UPDATE votes SET opt"+req.params.optId+"_votes=opt"+req.params.optId+"_votes + 1 WHERE id=1", function(err) {
+  console.log(req.params.optId);  
+	con.query("UPDATE votes SET opt"+req.params.optId+"_votes=opt"+req.params.optId+"_votes + 1 WHERE id=1", function(err, rows) {
     if (err) throw err;
+    io.emit("voted")
+    // res.sendStatus(200);
     console.log("update successful");
   });
-  console.log("Post request received");
+  con.query("Select * from votes WHERE id=1", function(err, rows) {
+    if (err) throw err; 
+    votes = rows;
+    res.send(rows);
+  });
 })
 
 
