@@ -19,10 +19,9 @@ socket.on("voted", getVotes)
 
 function getVotes() {
 	$.get("http://localhost:3000/votes", (data) => {
-		console.log(data[0]);
-		$("#votes1").text(data[0]["opt1_votes"]);
-		$("#votes2").text(data[0]["opt2_votes"]);
-		$("#votes3").text(data[0]["opt3_votes"]);
+		$("#votes1").text(data["opt1_votes"]);
+		$("#votes2").text(data["opt2_votes"]);
+		$("#votes3").text(data["opt3_votes"]);
 	});
 }
 
