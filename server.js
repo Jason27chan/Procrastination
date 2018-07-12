@@ -20,16 +20,15 @@ var votes;
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-
 });
+
 
 app.get("/votes", (req, res) => {
   con.query("Select * from votes WHERE id=1", function(err, rows) {
     if (err) throw err; 
     votes = rows;
-
+    res.send(votes)
   });
-	res.send(votes)
 })
 
 app.post("/votes/:optId", (req, res) => {
@@ -39,8 +38,8 @@ app.post("/votes/:optId", (req, res) => {
     console.log(fields);
     // res.sendStatus(200);
     console.log("update successful");
+    io.emit("voted");
   });
-  io.emit("voted");
   con.query("Select * from votes WHERE id=1", function(err, rows) {
     if (err) throw err; 
     votes = rows;
@@ -50,5 +49,6 @@ app.post("/votes/:optId", (req, res) => {
 
 
 var server = http.listen(3000, () => {
+
 	console.log("server is listening on port", server.address().port);
 });

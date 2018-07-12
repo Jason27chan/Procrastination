@@ -8,6 +8,10 @@ $(function() {
 		addVote("2");
 	})
 
+	$("#btn-3").click(function() {
+		addVote("3");
+	})
+
 	getVotes();
 });
 
@@ -18,10 +22,10 @@ function getVotes() {
 		console.log(data[0]);
 		$("#votes1").text(data[0]["opt1_votes"]);
 		$("#votes2").text(data[0]["opt2_votes"]);
-	})
+		$("#votes3").text(data[0]["opt3_votes"]);
+	});
 }
 
 function addVote(option) {
-	console.log("adding to " + option)
 	$.post("http://localhost:3000/votes/"+option);
 }
